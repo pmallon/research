@@ -1,13 +1,16 @@
 package com.trade.service.impl;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Future;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -42,9 +45,9 @@ public class TradeServiceImpl implements TradeService {
 
 	@Override
 	@Async(value = "reportExecutor")
-	public Future<Map<String, CountryReport>> generateByCountryReport() {
-		// TODO Auto-generated method stub
-		return null;
+    @Transactional(readOnly = true , propagation = Propagation.SUPPORTS , isolation = Isolation.READ_COMMITTED)
+	public Future<List<CountryReport>> generateByCountryReport() {		
+		return new AsyncResult<List<CountryReport>>(tradeDao.getTotals());
 	}
 
 }

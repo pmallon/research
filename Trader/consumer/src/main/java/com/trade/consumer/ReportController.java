@@ -1,6 +1,9 @@
 package com.trade.consumer;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,12 +21,23 @@ public class ReportController {
 	TradeService tradeService;
 	
 	@RequestMapping("/report")
-    public String generateReport(Model model) {
-        model.addAttribute("name", "Phil");
+    public String generateReport(Model model) {   
         
         
-        Future<Map<String,CountryReport>> byCountryReport = tradeService.generateByCountryReport();
-        
+		/*
+		 * Using Future to allow for multiple queries to run in parallel 
+		 */
+        Future<List<CountryReport>> byCountryReport = tradeService.generateByCountryReport();
+       
+        try {
+			model.addAttribute("countries", byCountryReport.get());
+		} catch (InterruptedException e) {
+			model.addAttribute("countries",new ArrayList<CountryReport>());
+			//Log error
+		} catch (ExecutionException e) {
+			model.addAttribute("countries",new ArrayList<CountryReport>());
+			//Log error
+		}
         
         return "report";
     }

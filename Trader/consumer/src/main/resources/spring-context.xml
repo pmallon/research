@@ -21,7 +21,7 @@
 		destroy-method="close" primary="true">
 		<property name="dataSource" ref="dataSourceTemplate" />
 		<property name="initialSize" value="${INITIAL_POOL}" />
-		<property name="maxActive" value="${MAX_THREAD_POOL}" /><!-- Important that max pool size matches thread pool executor -->
+		<property name="maxActive" value="${MAX_DB_POOL}" /><!-- Important that max pool size matches total of thread pool executors -->
 		<property name="maxIdle" value="${INITIAL_POOL}" />
 		<property name="minIdle" value="${INITIAL_POOL}" />
 
@@ -72,8 +72,17 @@
 	<bean id="processTradeExecutor"
 		class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
 		<property name="corePoolSize" value="${INITIAL_POOL}" />
-		<property name="maxPoolSize" value="${MAX_THREAD_POOL}" />
+		<property name="maxPoolSize" value="${MAX_TRADE_THREAD_POOL}" />
 		<property name="queueCapacity" value="${CAPACITY}" />
 	</bean>
+	
+	<bean id="reportExecutor"
+		class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+		<property name="corePoolSize" value="${INITIAL_POOL}" />
+		<property name="maxPoolSize" value="${MAX_REPORT_THREAD_POOL}" />
+		<property name="queueCapacity" value="${CAPACITY}" />
+	</bean>
+	
+	
 
 </beans>

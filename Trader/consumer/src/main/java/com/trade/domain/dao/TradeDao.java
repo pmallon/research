@@ -1,6 +1,9 @@
 package com.trade.domain.dao;
 
+import java.util.List;
+
 import com.trade.domain.entity.Trade;
+import com.trade.service.CountryReport;
 
 public interface TradeDao {
 
@@ -8,6 +11,6 @@ public interface TradeDao {
 
 	void stageTrade(Trade trade);
 
-	void updateTrade(Trade trade);
+	public List<CountryReport> getTotals();
 
 }

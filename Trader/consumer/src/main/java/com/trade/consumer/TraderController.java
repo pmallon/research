@@ -37,6 +37,9 @@ public class TraderController {
 	@Qualifier("tradeHadler")
 	TradeHandler tradeHandler;
 	
+	//Move to Spring config
+	private ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
+	
 	
 	/**
 	 * Validates the request  , then hands of to asynchronous
@@ -76,8 +79,7 @@ public class TraderController {
 	private TradeSubmitResponse validateTrade(TradeRequest request) {
 
 		TradeSubmitResponse response = null;
-		ValidatorFactory validatorFactory = Validation
-				.buildDefaultValidatorFactory();
+		
 		Validator validator = validatorFactory.getValidator();
 
 		Set<ConstraintViolation<TradeRequest>> violations = validator

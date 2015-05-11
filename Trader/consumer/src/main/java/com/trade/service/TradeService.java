@@ -1,5 +1,6 @@
 package com.trade.service;
 
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Future;
 
@@ -15,6 +16,6 @@ public interface TradeService {
 
 	long stageTrade(TradeRequest request);
 
-	Future<Map<String, CountryReport>> generateByCountryReport();
+	Future<List<CountryReport>> generateByCountryReport();
 
 }
