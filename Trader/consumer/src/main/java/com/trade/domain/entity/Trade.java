@@ -2,6 +2,7 @@ package com.trade.domain.entity;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.Currency;
 
 import javax.persistence.Column;
@@ -151,5 +152,91 @@ public class Trade {
 	public void setUserId(long userId) {
 		this.userId = userId;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((amountBuy == null) ? 0 : amountBuy.hashCode());
+		result = prime * result
+				+ ((amountSell == null) ? 0 : amountSell.hashCode());
+		result = prime * result + Arrays.hashCode(checkSum);
+		result = prime * result
+				+ ((currencyFrom == null) ? 0 : currencyFrom.getCurrencyCode().hashCode());
+		result = prime * result
+				+ ((currencyTo == null) ? 0 : currencyTo.getCurrencyCode().hashCode());
+		result = prime
+				* result
+				+ ((originatingCountry == null) ? 0 : originatingCountry
+						.hashCode());
+		result = prime * result + (processed ? 1231 : 1237);
+		result = prime * result + ((rate == null) ? 0 : rate.hashCode());
+		result = prime * result
+				+ ((timePlaced == null) ? 0 : timePlaced.hashCode());
+		result = prime * result + ((tradeId == null) ? 0 : tradeId.hashCode());
+		result = prime * result + (int) (userId ^ (userId >>> 32));
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Trade other = (Trade) obj;
+		if (amountBuy == null) {
+			if (other.amountBuy != null)
+				return false;
+		} else if (amountBuy.compareTo(other.amountBuy) != 0)
+			return false;
+		if (amountSell == null) {
+			if (other.amountSell != null)
+				return false;
+		} else if (amountSell.compareTo(other.amountSell)!=0)
+			return false;
+		if (!Arrays.equals(checkSum, other.checkSum))
+			return false;
+		if (currencyFrom == null) {
+			if (other.currencyFrom != null)
+				return false;
+		} else if (!currencyFrom.getCurrencyCode().equals(other.currencyFrom.getCurrencyCode()))
+			return false;
+		if (currencyTo == null) {
+			if (other.currencyTo != null)
+				return false;
+		} else if (!currencyTo.getCurrencyCode().equals(other.currencyTo.getCurrencyCode()))
+			return false;
+		if (originatingCountry == null) {
+			if (other.originatingCountry != null)
+				return false;
+		} else if (!originatingCountry.equals(other.originatingCountry))
+			return false;
+		if (processed != other.processed)
+			return false;
+		if (rate == null) {
+			if (other.rate != null)
+				return false;
+		} else if (rate.compareTo(other.rate)!=0)
+			return false;
+		if (timePlaced == null) {
+			if (other.timePlaced != null)
+				return false;
+		} else if (!timePlaced.equals(other.timePlaced))
+			return false;
+		if (tradeId == null) {
+			if (other.tradeId != null)
+				return false;
+		} else if (!tradeId.equals(other.tradeId))
+			return false;
+		if (userId != other.userId)
+			return false;
+		return true;
+	}
+	
+	
 
 }

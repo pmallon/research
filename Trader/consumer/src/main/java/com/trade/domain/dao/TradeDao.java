@@ -9,7 +9,7 @@ public interface TradeDao {
 
 	Trade findByTradeId(long tradeId);
 
-	void stageTrade(Trade trade);
+	Trade stageTrade(Trade trade);
 
 	public List<CountryReport> getTotals();
 

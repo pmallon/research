@@ -45,10 +45,11 @@ public class TradeDaoImpl implements TradeDao {
 	}
 
 	@Override
-	public void stageTrade(Trade trade) {
+	public Trade stageTrade(Trade trade) {
 		if (trade != null && trade.getTradeId() == null) {// ID is set by DB
 			updateCheckSum(trade);
 			sessionFactory.getCurrentSession().persist(trade);
+			return trade;
 		} else {
 			// This is a code error.
 			throw new IllegalArgumentException(

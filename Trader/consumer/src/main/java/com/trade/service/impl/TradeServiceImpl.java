@@ -36,9 +36,9 @@ public class TradeServiceImpl implements TradeService {
 		} catch (IllegalAccessException | InvocationTargetException e) {
 			throw new IllegalArgumentException(e);
 		}
-		tradeDao.stageTrade(trade);
+		Trade updatedTrade = tradeDao.stageTrade(trade);
 		
-		return trade.getTradeId();
+		return updatedTrade.getTradeId();
 
 	}
 

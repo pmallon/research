@@ -17,11 +17,16 @@ import org.springframework.stereotype.Service;
 import com.trade.consumer.api.TradeRequest;
 import com.trade.processor.TradeHandler;
 
+
+/**
+ * Sample where we can chain the handlers.
+ * @author philip.mallon
+ *
+ */
 @Service()
 @Qualifier(value ="tradeHadler1")
 public class SumTotalTrades implements TradeHandler{
 	
-	private Map<String,BigDecimal> totalAmountBuyCountry = new HashMap<String, BigDecimal>();
 	
 	@Autowired(required = false)
 	@Qualifier("tradeHadler2")
@@ -29,17 +34,7 @@ public class SumTotalTrades implements TradeHandler{
 
 	@Override
 	public void processTrade(TradeRequest request) {
-		BigDecimal total = totalAmountBuyCountry.get(request.getOriginatingCountry());
-		if(total==null){
-			total = BigDecimal.ZERO;
-		}
 		
-		total = total.add(request.getAmountBuy());
-		
-		totalAmountBuyCountry.put(request.getOriginatingCountry(), total);
-		
-		System.out.println(total.toString());
-		// TODO Auto-generated method stub
 		
 	}
 
